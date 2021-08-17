@@ -123,9 +123,7 @@
                   <tr>
                     <td>{{row.Rank}}</td>
                     <td>{{row.NCTId}}</td>
-                    <!-- <td class="td_hidden title_column {% if forloop.counter0|divisibleby:2 %}bg-two{% else %}bg-dark{% endif %}"><span>{{row.BriefTitle}}</span></td> -->
                     <td class="td_hidden title_column {% cycle 'bg-two' 'bg-dark'%}"><span>{{row.BriefTitle}}</span></td>
-                    <!-- <td class="td_hidden title_column"><span>{{row.BriefTitle}}</span></td> -->
                     <td class="td_hidden">{{row.Condition}}</td>
                     <td>{{row.Phase}}</td>
                     <td>{{row.StudyType}}</td>
@@ -147,9 +145,19 @@
                   </tr>
                 
                   <!--    INSERT NEW ROW OF OUTCOME TABLE RESULTS HERE, BASED ON SELECTIVE CRITERIA      -->
+                  {% if row.OutcomeMeasureType %}
+                  <div id="collapse{{forloop.parentloop.counter0}}">
+                    <tr>
+                      {% for item in row.OutcomeMeasureType %}
+                        <td>{{item}}</td> 
+                      {% endfor %}
+                    </tr>
+                  </div> 
+                  {% endif %}
                   
-                  <!--        align the outcomes columns to be reported in the outcome table, slot in appropriately       -->
                   
+                
+                <!--        align the outcomes columns to be reported in the outcome table, slot in appropriately       -->
 
                 {% endfor %}
                 {% endif %}
