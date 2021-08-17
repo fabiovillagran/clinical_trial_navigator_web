@@ -1,0 +1,49 @@
+{% extends "clin_trial_nav/base.html" %}
+
+{% block content %}
+
+<div class="container">
+    
+    <div class="row mt-5"></div>
+    <div class="row mt-2"></div>
+
+    <div class="row mt-5">
+        <div class="col-md">
+            <h1 class="text-center display-3">Fabio's Clinical Trial Navigator</h1>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-7 text-center mx-auto">
+            <p class="text-center">
+                Search through the federal government's clinical trial registry <a href="https://www.clinicaltrials.gov">(clinicaltrials.gov)</a> 
+                to compare trial attributes in a certain therapeutic area or drug class.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md">
+            <form action = "results/" method="post" id="search_form" class="form justify-content-center">          <!--         ADD ACTION HERE         -->
+               {% csrf_token %}
+                <div class="form-group mx-auto">
+                    <label class="ml-5">Search Expression: </label>
+                    <input type="text" class="form-control ml-5" name = "search" placeholder="e.g., 'severe atopic dermatitis'">
+                </div>
+                
+                <div class="form-group mx-auto text-center">
+                    <button type="submit" class="btn-primary btn-lg">Search</button>
+                </div>   
+                         
+            </form>
+        </div>
+    </div>
+    
+    <div class="row mt-5"></div>
+    <div class="row mt-5"></div>
+    <div class="row mt-5"></div>
+    
+
+</div>
+
+{% endblock %}
