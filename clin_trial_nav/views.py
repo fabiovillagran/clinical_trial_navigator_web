@@ -67,3 +67,11 @@ def results(request):
 
     return render(request, 'clin_trial_nav/results.html', context)
 
+def results_outcomes(request):
+    context = {}
+
+    # get the whole row from the object that was clicked (check javascript function on how to do this?)
+    row_entry = request.POST.get('search', None)
+
+
+    return render(request, 'clin_trial_nav/results_outcomes.html', context)

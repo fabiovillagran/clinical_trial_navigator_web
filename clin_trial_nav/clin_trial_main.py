@@ -135,56 +135,21 @@ def build_study_table(url):
 
 
 
-def build_outcome_table(df_master):
+def extract_outcomes(entry, df_outcomes):            #iterate thru all outcome measures, create a dataframe with all required info
     
-    # initialize an outcomes_df from the first study within the query study table
+#     try:
+#         df_outcomes = df_outcomes.drop(columns=['Rank', 'BriefTitle', 'Condition', 'Phase', 'StudyType', 'InterventionName',
+#          'EnrollmentCount', 'StartDate', 'PrimaryCompletionDate', 'EligibilityCriteria', 'ArmGroupDescription'])
+#     except:
+#         pass
     
-    study_1_nctid = df_master['NCTId'][0] 
-    
-    entry = df_master[df_master['NCTId']==study_1_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
-
-    df_outcomes = pd.DataFrame(columns=entry.columns)
-
     try:                            
         measures_per_outcome = len(entry['OutcomeMeasurementValue'][0])//len(entry['OutcomeMeasureTitle'][0])
     except:
         measures_per_outcome = 1
-
-
-    df_outcomes = extract_outcomes(entry, df_outcomes, measures_per_outcome)
-    
-    study_2_nctid = df_master['NCTId'][1] 
-    entry_2 = df_master[df_master['NCTId']==study_2_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
-
-    df = extract_outcomes(entry_2, df_outcomes, measures_per_outcome)
-    outcomes_df = pd.concat([df_outcomes, df], axis=0, ignore_index=False)
-    
-    for i in range(1, len(df_master)):                         # concatenate each study to the dataframe to generate master dataframe
-        study_x_nctid = df_master['NCTId'][i]
-        entry_x = df_master[df_master['NCTId']==study_x_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
-        df = extract_outcomes(entry_x, df_outcomes, measures_per_outcome)
-        outcomes_df = pd.concat([outcomes_df, df], axis=0, ignore_index=False)
-    
-    outcomes_df = outcomes_df.reset_index().drop(columns='index')
-    
-    return outcomes_df
-
-
-
-# class Study:
-
-
-
-def extract_outcomes(entry, df_outcomes, measures_per_outcome):            #iterate thru all outcome measures, create a dataframe with all required info
-    
-    try:
-        df_outcomes = df_outcomes.drop(columns=['Rank', 'BriefTitle', 'Condition', 'Phase', 'StudyType', 'InterventionName',
-         'EnrollmentCount', 'StartDate', 'PrimaryCompletionDate', 'EligibilityCriteria', 'ArmGroupDescription'])
-    except:
-        pass
     
     for i, item in enumerate(entry['OutcomeMeasureType']):
-            
+        
         try:
             df_outcomes['OutcomeMeasureType'] = [item for item in entry['OutcomeMeasureType']][0]
         except:
@@ -236,11 +201,42 @@ def extract_outcomes(entry, df_outcomes, measures_per_outcome):            #iter
         except:
             pass
     
-    df_outcomes['NCTId'] = [item for item in entry['NCTId']][0]
-    df_outcomes['Phase'] = [item for item in entry['Phase']][0]
-    df_outcomes['BriefTitle'] = [item for item in entry['BriefTitle']][0]
+#     df_outcomes['NCTId'] = [item for item in entry['NCTId']][0]
+#     df_outcomes['Phase'] = [item for item in entry['Phase']][0]
+#     df_outcomes['BriefTitle'] = [item for item in entry['BriefTitle']][0]
     
-    return df_outcomes
+    df_outcomes_master = pd.concat([entry, df_outcomes], axis=0, ignore_index=False)
+    
+    return df_outcomes_master
+
+def build_outcome_table(df_master):
+    
+    # initialize an outcomes_df from the first study within the query study table
+    
+    study_1_nctid = df_master['NCTId'][0] 
+    
+    entry = df_master[df_master['NCTId']==study_1_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
+    
+    df_outcomes = pd.DataFrame(columns=entry.columns)
+
+    df_outcomes_study_1 = extract_outcomes(entry, df_outcomes)
+    
+    study_2_nctid = df_master['NCTId'][1] 
+    entry_2 = df_master[df_master['NCTId']==study_2_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
+
+    df_outcomes_study_2 = extract_outcomes(entry_2, df_outcomes)
+    outcomes_df = pd.concat([df_outcomes_study_1, df_outcomes_study_2], axis=0, ignore_index=False)
+    
+    for i in range(1, len(df_master)):                         # concatenate each study to the dataframe to generate master dataframe
+        study_x_nctid = df_master['NCTId'][i]
+
+        entry_x = df_master[df_master['NCTId']==study_x_nctid].reset_index().drop(columns='index')      # build a single df entry for this NCT ID
+        df = extract_outcomes(entry_x, df_outcomes)
+        outcomes_df = pd.concat([outcomes_df, df], axis=0, ignore_index=False)
+    
+    outcomes_df = outcomes_df.reset_index().drop(columns='index')
+    
+    return outcomes_df
 
     
 
