@@ -144,10 +144,7 @@
                     <td class="td_hidden"><span>{{row.OutcomeMeasureUnitOfMeasure}}</span></td>
                   </tr>
                 
-
-                
-
-                     <!-- INSERT NEW ROW OF OUTCOME TABLE RESULTS HERE, BASED ON SELECTIVE CRITERIA      -->
+   
                   {% if row.OutcomeMeasureType %}
                     {% for outcome_measure in row.OutcomeMeasureType %}
                       <tr class="collapse" id="collapse{{forloop.parentloop.counter0}}">
@@ -166,14 +163,14 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{{row.OutcomeMeasureType.forloop.counter0}}</td>
-                        <td>{{row.OutcomeMeasureTitle.forloop.counter0}}</td>
-                        <td>{{row.OutcomeMeasureDescription.forloop.counter0}}</td>
-                        <td>{{row.OutcomeMeasureTimeFrame.forloop.counter0}}</td>
+                        <td>{{row['OutcomeMeasureType'][loop.index0]}}</td>
+                        <td>{{row.OutcomeMeasureTitle[loop.index0]}}</td>
+                        <td>{{row.OutcomeMeasureDescription[loop.index0]}}</td>
+                        <td>{{row.OutcomeMeasureTimeFrame[loop.index0]}}</td>
                         
-                        <td>{{row.OutcomeMeasurementValue.forloop.counter0}}</td>
+                        <td>{{row.OutcomeMeasurementValue[loop.index0]}}</td>
                         
-                        <td>{{row.OutcomeMeasureUnitOfMeasure.forloop.counter0}}</td>
+                        <td>{{row.OutcomeMeasureUnitOfMeasure[loop.index0]}}</td>
                       </tr>
                     {% endfor %}
                   {% endif %}

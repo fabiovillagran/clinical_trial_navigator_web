@@ -3,6 +3,20 @@ from django.template import loader
 from . import clin_trial_main
 import json
 
+# from django.templatetags.static import static
+# from django.urls import reverse
+
+# from jinja2 import Environment
+
+
+# def environment(**options):
+#     env = Environment(**options)
+#     env.globals.update({
+#         'static': static,
+#         'url': reverse,
+#     })
+#     return env
+
 
 # Create your views here.
 
