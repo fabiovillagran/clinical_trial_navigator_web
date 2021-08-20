@@ -1,4 +1,4 @@
-{% extends "clin_trial_nav/base.html" %}
+{% extends "clin_trial_nav/jinja2/base.jinja" %}
 
 {% block content %}
 
@@ -6,7 +6,7 @@
     .tableFixHead{
         overflow-y: auto;
         overflow-x: auto;
-        height: 600px;
+        height: 680px;
         width: 95%;
     }
 
@@ -80,12 +80,12 @@
     </div>
     
     <div class="row">
-        <div class="col-md px-5 mx-5">
-            <p>Type something in the input field to search Clinical Trials:</p>  
-            <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search...">
-            <br>
-        </div>
-    </div>
+      <div class="col-md px-5 mx-5">
+          <p>Type something in the input field to search Clinical Trials:</p>  
+          <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search...">
+          <br>
+      </div>
+  </div>
 
     <div class="row justify-content-center">
         <div class="col-auto tableFixHead table-responsive">
@@ -123,7 +123,7 @@
                   <tr>
                     <td>{{row.Rank}}</td>
                     <td>{{row.NCTId}}</td>
-                    <td class="td_hidden title_column {% cycle 'bg-two' 'bg-dark'%}"><span>{{row.BriefTitle}}</span></td>
+                    <td class="td_hidden title_column {% cycle 'bg-two' 'bg-dark' %}"><span>{{row.BriefTitle}}</span></td>
                     <td class="td_hidden">{{row.Condition}}</td>
                     <td>{{row.Phase}}</td>
                     <td>{{row.StudyType}}</td>
@@ -144,9 +144,9 @@
                     <td class="td_hidden"><span>{{row.OutcomeMeasureUnitOfMeasure}}</span></td>
                   </tr>
                 
-   
+                
                   {% if row.OutcomeMeasureType %}
-                    {% for outcome_measure in row.OutcomeMeasureType %}
+                    {% for item in row.OutcomeMeasureTitle %}
                       <tr class="collapse" id="collapse{{forloop.parentloop.counter0}}">
                         <td></td>
                         <td></td>
@@ -163,19 +163,16 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{{row['OutcomeMeasureType'][loop.index0]}}</td>
-                        <td>{{row.OutcomeMeasureTitle[loop.index0]}}</td>
-                        <td>{{row.OutcomeMeasureDescription[loop.index0]}}</td>
-                        <td>{{row.OutcomeMeasureTimeFrame[loop.index0]}}</td>
-                        
-                        <td>{{row.OutcomeMeasurementValue[loop.index0]}}</td>
-                        
-                        <td>{{row.OutcomeMeasureUnitOfMeasure[loop.index0]}}</td>
+                        <td class="td_hidden">{{ row.OutcomeMeasureType.loop.index0 }}</td>
+                        <td class="td_hidden">{{item}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                     {% endfor %}
-                  {% endif %}
+                  {% endif %} 
                   
-                <!--        align the outcomes columns to be reported in the outcome table, slot in appropriately       -->
 
                 {% endfor %}
                 {% endif %}
@@ -183,6 +180,7 @@
             </table>
         </div>
     </div>
+
     
   </div>
 

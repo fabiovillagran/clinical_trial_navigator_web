@@ -28,7 +28,7 @@ def index(request):
 
     }
 
-    return render(request, 'clin_trial_nav/index.html', context)
+    return render(request, 'clin_trial_nav/jinja2/index.jinja', context)
 
 
 
@@ -48,9 +48,10 @@ def results(request):
     df_master = clin_trial_main.build_study_table(url)
 
     
-    # df_outcomes = clin_trial_main.build_outcome_table(df_master)
+    df_outcomes = clin_trial_main.build_outcome_table(df_master)
 
     # new code taken from geeks4geeks #
+    
     json_records = df_master.reset_index().to_json(orient='records')
     data = []
     data = json.loads(json_records)
@@ -65,13 +66,13 @@ def results(request):
     context['d'] = data
     # context['o'] = outcome_data
 
-    return render(request, 'clin_trial_nav/results.html', context)
+    return render(request, 'clin_trial_nav/jinja2/results2.jinja', context)
 
-def results_outcomes(request):
-    context = {}
+# def results_outcomes(request):
+#     context = {}
 
-    # get the whole row from the object that was clicked (check javascript function on how to do this?)
-    row_entry = request.POST.get('search', None)
+#     # get the whole row from the object that was clicked (check javascript function on how to do this?)
+#     row_entry = request.POST.get('search', None)
 
 
-    return render(request, 'clin_trial_nav/results_outcomes.html', context)
+#     return render(request, 'clin_trial_nav/results_outcomes.html', context)
