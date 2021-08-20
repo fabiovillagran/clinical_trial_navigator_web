@@ -1,4 +1,4 @@
-{% extends "clin_trial_nav/jinja2/base.jinja" %}
+{% extends "base.jinja" %}
 
 {% block content %}
 
@@ -25,9 +25,10 @@
     <div class="row mt-4">
         <div class="col-md">
             <form action = "results/" method="post" id="search_form" class="form justify-content-center">          <!--         ADD ACTION HERE         -->
-               {% csrf_token %}
+               <!-- {# csrf_token #} -->
                 <div class="form-group mx-auto">
                     <label class="ml-5">Search Expression: </label>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <input type="text" class="form-control ml-5" name = "search" placeholder="e.g., 'severe atopic dermatitis'">
                 </div>
                 

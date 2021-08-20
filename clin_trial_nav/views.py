@@ -28,7 +28,7 @@ def index(request):
 
     }
 
-    return render(request, 'clin_trial_nav/jinja2/index.jinja', context)
+    return render(request, 'index.jinja', context)
 
 
 
@@ -66,7 +66,7 @@ def results(request):
     context['d'] = data
     # context['o'] = outcome_data
 
-    return render(request, 'clin_trial_nav/jinja2/results2.jinja', context)
+    return render(request, 'results2.jinja', context)
 
 # def results_outcomes(request):
 #     context = {}

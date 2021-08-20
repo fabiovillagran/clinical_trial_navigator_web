@@ -1,4 +1,4 @@
-{% extends "clin_trial_nav/jinja2/base.jinja" %}
+{% extends "base.jinja" %}
 
 {% block content %}
 
@@ -18,7 +18,8 @@
 
     table {
         border-collapse: collapse;
-        width: 100%,
+        width: 100%;
+        transition: 3s;
     }
     
     th, td {
@@ -27,8 +28,13 @@
         white-space: nowrap;
         max-width: 300px;
         line-height: 1;
-        transition: 1s;
-        transition-delay: 1s;
+        transition: 3s;
+        /* transition-delay: 3s !important; */
+    }
+
+    .wrapped_text {
+      white-space: pre-line;
+      overflow-x: auto;
     }
 
     .title_column {
@@ -46,6 +52,8 @@
       overflow-x: auto;
       overflow-y: auto;
       text-overflow:inherit;
+      /* transition: 3s; */
+      /* transition-delay: 3s; */
     }
 
     th:nth-child(3), td:nth-child(3) {
@@ -119,11 +127,11 @@
                 <tbody id="myTable">
                 {% if d %}  
                 {% for row in d %}
-
+                {% set outer_loop = loop %}
                   <tr>
                     <td>{{row.Rank}}</td>
                     <td>{{row.NCTId}}</td>
-                    <td class="td_hidden title_column {% cycle 'bg-two' 'bg-dark' %}"><span>{{row.BriefTitle}}</span></td>
+                    <td class="td_hidden title_column {{loop.cycle('bg-two', 'bg-dark')}}"><span>{{row.BriefTitle}}</span></td>
                     <td class="td_hidden">{{row.Condition}}</td>
                     <td>{{row.Phase}}</td>
                     <td>{{row.StudyType}}</td>
@@ -135,19 +143,19 @@
                     <td class="td_hidden">{{row.ArmGroupInterventionName}}</td>
                     <td class="td_hidden"><span>{{row.ArmGroupDescription}}</span></td>
                     <td class="td_hidden">{{row.InterventionArmGroupLabel}}</td>
-                    <td class="td_hidden"><button class="btn btn-primary" data-toggle="collapse" data-target="#collapse{{forloop.counter0}}">Toggle Outcomes</button></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasureType}}</span></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasureTitle}}</span></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasureDescription}}</span></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasureTimeFrame}}</span></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasurementValue}}</span></td>
-                    <td class="td_hidden"><span>{{row.OutcomeMeasureUnitOfMeasure}}</span></td>
+                    <td class="td_hidden"><button class="btn btn-primary" data-toggle="collapse" data-target="#collapse{{loop.index0}}">Toggle Outcomes</button></td>
+                    <td><span>{{row.OutcomeMeasureType}}</span></td>
+                    <td><span>{{row.OutcomeMeasureTitle}}</span></td>
+                    <td><span>{{row.OutcomeMeasureDescription}}</span></td>
+                    <td><span>{{row.OutcomeMeasureTimeFrame}}</span></td>
+                    <td><span>{{row.OutcomeMeasurementValue}}</span></td>
+                    <td><span>{{row.OutcomeMeasureUnitOfMeasure}}</span></td>
                   </tr>
                 
                 
                   {% if row.OutcomeMeasureType %}
                     {% for item in row.OutcomeMeasureTitle %}
-                      <tr class="collapse" id="collapse{{forloop.parentloop.counter0}}">
+                      <tr class="collapse" id="collapse{{outer_loop.index0}}">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -163,12 +171,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="td_hidden">{{ row.OutcomeMeasureType.loop.index0 }}</td>
-                        <td class="td_hidden">{{item}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="td_hidden">{{ row.OutcomeMeasureType[loop.index0] }}</td>
+                        <td class="td_hidden wrapped_text">{{row.OutcomeMeasureTitle[loop.index0]}}</td>
+                        <td class="td_hidden">{{row.OutcomeMeasureDescription[loop.index0]}}</td>
+                        <td class="td_hidden">{{row.OutcomeMeasureTimeFrame[loop.index0]}}</td>
+                        <td class="td_hidden">{{row.OutcomeMeasurementValue[loop.index0]}}</td>
+                        <td class="td_hidden">{{row.OutcomeMeasureUnitOfMeasure[loop.index0]}}</td>
                       </tr>
                     {% endfor %}
                   {% endif %} 

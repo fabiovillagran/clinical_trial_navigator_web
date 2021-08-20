@@ -70,7 +70,7 @@ TEMPLATES = [
     },
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'clin_trial_nav/templates/clin_trial_nav/jinja2')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'jinja_2.environment',
