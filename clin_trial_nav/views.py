@@ -44,29 +44,35 @@ def results(request):
 
     search = request.POST.get('search', None)
 
-    url = clin_trial_main.build_url_from_query(search)
-    df_master = clin_trial_main.build_study_table(url)
+    if search:
+        url = clin_trial_main.build_url_from_query(search)
+        
+        try:
+            df_master = clin_trial_main.build_study_table(url)
 
-    
-    df_outcomes = clin_trial_main.build_outcome_table(df_master)
+            # df_outcomes = clin_trial_main.build_outcome_table(df_master)
 
-    # new code taken from geeks4geeks #
-    
-    json_records = df_master.reset_index().to_json(orient='records')
-    data = []
-    data = json.loads(json_records)
+            # new code borrowed from geeks4geeks #
+            
+            json_records = df_master.reset_index().to_json(orient='records')
+            data = []
+            data = json.loads(json_records)
 
-    # json_records_2 = df_outcomes.reset_index().to_json(orient='records')
-    # outcome_data = []
-    # outcome_data = json.loads(json_records_2)
+            # json_records_2 = df_outcomes.reset_index().to_json(orient='records')
+            # outcome_data = []
+            # outcome_data = json.loads(json_records_2)
 
-    
-    context['search'] = search
-    context['url'] = url
-    context['d'] = data
-    # context['o'] = outcome_data
+            
+            context['search'] = search
+            context['url'] = url
+            context['d'] = data
+            # context['o'] = outcome_data
 
-    return render(request, 'results2.jinja', context)
+            return render(request, 'results2.jinja', context)
+        except:
+            return render(request, 'no_results.jinja', context)
+    else:
+        return render(request, 'no_results.jinja', context)
 
 # def results_outcomes(request):
 #     context = {}

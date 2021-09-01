@@ -54,6 +54,7 @@ def build_study_table(url):
     ## convert the clinicaltrials.gov JSON response to a pandas dataframe
     
     result = requests.get(url).json()
+    
     result_list = [result for result in result['StudyFieldsResponse']['StudyFields'] if result['OutcomeMeasureType']]     #loop through the list and identify ONLY studies with outcome measures reported 
     df_master = json_normalize(result_list[0])      # initialize dataframe using JSON result
 
