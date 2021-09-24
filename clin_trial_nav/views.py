@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.template import loader
 from . import clin_trial_main
 import json
+import time
 
 # from django.templatetags.static import static
 # from django.urls import reverse
@@ -48,8 +49,10 @@ def results(request):
         url = clin_trial_main.build_url_from_query(search)
         
         try:
+            time_start = time.process_time()
             df_master = clin_trial_main.build_study_table(url)
-
+            time_elapsed = time.process_time()-time_start
+            
             # df_outcomes = clin_trial_main.build_outcome_table(df_master)
 
             # new code borrowed from geeks4geeks #
@@ -57,7 +60,6 @@ def results(request):
             json_records = df_master.reset_index().to_json(orient='records')
             data = []
             data = json.loads(json_records)
-
             # json_records_2 = df_outcomes.reset_index().to_json(orient='records')
             # outcome_data = []
             # outcome_data = json.loads(json_records_2)
@@ -66,7 +68,7 @@ def results(request):
             context['search'] = search
             context['url'] = url
             context['d'] = data
-            # context['o'] = outcome_data
+            context['time_elapsed'] = time_elapsed
 
             return render(request, 'results2.jinja', context)
         except:
