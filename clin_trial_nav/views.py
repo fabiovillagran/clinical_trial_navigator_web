@@ -38,7 +38,7 @@ def results(request):
     
     # ADD FUNCTIONALITY HERE, TO GENERATE CONTEXT
     
-
+    
 
     # define all variables in the body, then assign in the context
     # name = "Fabio"
@@ -69,6 +69,7 @@ def results(request):
             context['url'] = url
             context['d'] = data
             context['time_elapsed'] = time_elapsed
+            context['length'] = len(data)
 
             return render(request, 'results2.jinja', context)
         except:
