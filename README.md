@@ -8,7 +8,7 @@ Link:  https://fabiovillagran.pythonanywhere.com
 
 ## How to Use
 
-![](ezgif.com-video-to-gif.gif)
+![](ezgif.com-video-to-gif-7.gif)
 
 First, enter a term or expression that you wish to search within the government's clinical trials registry.
 
