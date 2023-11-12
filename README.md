@@ -14,8 +14,8 @@ First, enter a term or expression that you wish to search within the government'
 
 Your results will be returned in a clean table containing key trial attributes/information.  You can search and/or filter any column of interest, and can expand or collapse all clinical outcome measures for a given trial to observe all clinical outcomes and compare between  trials. 
 
-![](ezgif.com-video-to-gif-2.gif)
+![](ezgif.com-video-to-gif-5.gif)
 
 Result sets can also be downloaded as a CSV, Excel workbook, or PDF file.
 
-![](ezgif.com-video-to-gif-3.gif)
+![](ezgif.com-video-to-gif-6.gif)
