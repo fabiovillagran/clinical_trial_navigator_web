@@ -8,7 +8,7 @@ Link:  https://fabiovillagran.pythonanywhere.com
 
 ## How to Use
 
-[INSERT GIF of query, scrollling thru table of results, and downloading the table as csv/excel etc.]
+![](ezgif.com-video-to-gif.gif)
 
 First, enter a term or expression that you wish to search within the government's clinical trials registry.
 
