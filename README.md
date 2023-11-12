@@ -1,6 +1,6 @@
 # Clinical Trial Navigator
 
-This is a web-based tool that takes a search expression as input and queries the [Clinical Trial National database](clinicaltrials.gov), returning a clean table of results that contains key clinical trial information. Returned fields include NCTID number, trial drug, comparator, inclusion criteria, clinical endpoints, and other pertinent data points.
+This is a web-based tool that takes a search expression as input and queries the [Clinical Trial National database](https://clinicaltrials.gov), returning a clean table of results that contains key clinical trial information. Returned fields include NCTID number, trial drug, comparator, inclusion criteria, clinical endpoints, and other pertinent data points.
 
 Link:  https://fabiovillagran.pythonanywhere.com
 
